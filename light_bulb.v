@@ -17,24 +17,24 @@ endmodule
 module light_bulb(q, t, clk, reset);
     output [2:0] q;
     input t, clk, reset;
-    req [2:0] q;
+    reg [2:0] q;
     
     initial 
         begin
-            q <= 3'b000;
+            q <= 0;
         end
         
     always @ (posedge clk)
         begin
         if(reset) begin
-            q <= 3'b000;
+            q <= 0;
         end
         else begin
         
-            if(q[2] == 1) q <= 0;
-            if(q[1] == 1) q[2] <= 1;
-            if(q[0] == 1) q[1] <= 1;
-            if(q[0] != 1) q[0] <= 1;
+            if(q[2] == 1) q <= 3'b000;
+            else if(q[1] == 1) q[2] <= 1;
+            else if(q[0] == 1) q[1] <= 1;
+            else if(q[0] != 1) q[0] <= 1;
             
             end
         end
