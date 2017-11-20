@@ -1,0 +1,77 @@
+$date
+	Mon Nov 13 22:54:48 2017
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module stimulus $end
+$var wire 1 ! QN $end
+$var wire 1 " Q $end
+$var reg 1 # En $end
+$var reg 1 $ J $end
+$var reg 1 % K $end
+$scope module jk_latch1 $end
+$var wire 1 & D $end
+$var wire 1 # En $end
+$var wire 1 $ J $end
+$var wire 1 % K $end
+$var wire 1 ' w_and1 $end
+$var wire 1 ( w_and2 $end
+$var wire 1 ) w_not1 $end
+$var wire 1 ! QN $end
+$var wire 1 " Q $end
+$var reg 1 * QN_value $end
+$var reg 1 + Q_value $end
+$scope module d_latch1 $end
+$var wire 1 & D $end
+$var wire 1 # En $end
+$var wire 1 , R $end
+$var wire 1 - S $end
+$var wire 1 . w_not1 $end
+$var wire 1 ! QN $end
+$var wire 1 " Q $end
+$scope module sr_latch1 $end
+$var wire 1 " Q $end
+$var wire 1 ! QN $end
+$var wire 1 , R $end
+$var wire 1 - S $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x.
+x-
+x,
+x+
+x*
+1)
+x(
+0'
+x&
+0%
+0$
+1#
+x"
+x!
+$end
+#5
+x'
+1$
+#10
+1!
+0"
+1,
+1.
+0-
+0&
+0(
+0'
+0)
+0$
+1%
