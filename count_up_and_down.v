@@ -1,6 +1,6 @@
-module count(q, sel, clk, reset);
+module counter(q, sel, clk, reset);
     output [2:0] q;
-    input t, clk, reset;
+    input clk, reset, sel;
     reg [1:0] pos_count;
     reg [1:0] neg_count;
     reg [2:0] q;
