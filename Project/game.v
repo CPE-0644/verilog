@@ -23,10 +23,11 @@ module project(motor1, motor2,
     reg [4:0] num2;
     reg [8:0] num3;
     reg [2:0] point;
+    reg [6:0] point_led;
 
     reg [3:0] rand,rand2;
     reg [8:0] rand3;
-    reg operator;
+    reg operator, alreadySet;
 
     always @(posedge clk) begin // random number
       rand <= rand + 1;
@@ -63,7 +64,7 @@ module project(motor1, motor2,
       end
 
       if(set) begin
-         alreadySet = 1;
+         alreadySet <= 1;
          operator <= rand3 % 4;
          if(rand >= rand2) begin
             num1 <= rand;
@@ -128,29 +129,25 @@ module project(motor1, motor2,
         if(operator == 0) begin
           if(switch[0]) begin
             point <= point+1;
-            reset = true;
-            alreadySet = 0;
+            alreadySet <= 0;
           end
         end
         else if(operator == 1) begin
           if(switch[1]) begin
             point <= point+1;
-            reset = true;
-            alreadySet = 0;
+            alreadySet <= 0;
           end
         end
         else if(operator == 2) begin
           if(switch[2]) begin
             point <= point+1;
-            reset = true;
-            alreadySet = 0;
+            alreadySet <= 0;
           end
         end
         else if(operator == 3) begin
           if(switch[3]) begin
             point <= point+1;
-            reset = true;
-            alreadySet = 0;
+            alreadySet <= 0;
           end
         end
       end
