@@ -98,8 +98,6 @@ module project(motor1, motor2, operator,
             2 : num3 <= num1 * num2;
           endcase
 
-          show <= 1;
-
       end
 
       if(!reset && !newNum) begin
@@ -140,11 +138,8 @@ module project(motor1, motor2, operator,
             8 : point_led <= 7'b1111111;
             9 : point_led <= 7'b1111011;
         endcase
-    end
 
-    always @ (posedge show) begin 
-
-       case (num1) // show 3 sec
+         case (num1) // show 3 sec
             //            abcdefg
             0 : led1 <= 7'b1111110;
             1 : led1 <= 7'b0110000;
@@ -185,12 +180,15 @@ module project(motor1, motor2, operator,
             8 : led3 <= 7'b1111111;
             9 : led3 <= 7'b1111011;
         endcase
-    end
 
-    always @ (posedge show) begin 
-      #5 num_led <= led1;
-      #5 num_led <= led2;
-      #5 num_led <= led3;
+        #5 show <= 1;
+
+        if(show) begin
+           #5 num_led <= led1;
+          #5 num_led <= led2;
+          #5 num_led <= led3;
+        end
+
     end
     
 endmodule
