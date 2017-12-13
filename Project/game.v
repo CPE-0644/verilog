@@ -1,12 +1,11 @@
-module project(motor1, motor2, operator,
+module project(motor1, motor2,
                num_led, point_led,
                switch, motor_dir, clk, reset);
 
     input [1:0] motor_dir;
     input [3:0] switch;
     input reset, clk;
-
-    output [2:0] operator;
+    
     output [1:0] motor1;
     output [1:0] motor2;
     output [6:0] num_led;
