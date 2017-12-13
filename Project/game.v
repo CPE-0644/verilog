@@ -2,7 +2,7 @@ module project(motor1, motor2,
                num_led, point_led,
                switch, motor_dir, clk, reset);
 
-    input [1:0] motor_dir;
+    input [3:0] motor_dir;
     input [3:0] switch;
     input reset, clk;
 
@@ -31,7 +31,7 @@ module project(motor1, motor2,
 
     wire q0;
 
-    freq_div(q0 , clk)
+   freq_div fd(q0 , clk);
 
    always @ (posedge clk) begin // random number
       rand1 <= rand1 + 1;
@@ -42,25 +42,25 @@ module project(motor1, motor2,
       if(rand3 >= 100) rand3 <= 0; 
     end
 
-     always @ (posedge q0) begin  // click switch then opposite dir
+    always @ (posedge clk) begin  // click switch then opposite dir
       if(motor_dir[0] == 1) begin
-      if(motor1 <= 2'b01) 
-         motor1 <= 2'b10;
-      else
         motor1 <= 2'b01;
       end
-    end
-
-    always @ (posedge q0) begin  // click switch then opposite dir
       if(motor_dir[1] == 1) begin
-      if(motor2 <= 2'b01) 
-         motor2 <= 2'b10;
-      else
-        motor2 <= 2'b01;
+        motor1 <= 2'b10;
       end
     end
 
-    always @ (posedge q0) begin // declare opetation + - * /
+    always @ (posedge clk) begin  // click switch then opposite dir
+     if(motor_dir[2] == 1) begin
+        motor2 <= 2'b01;
+      end
+      if(motor_dir[3] == 1) begin
+        motor2 <= 2'b10;
+      end
+    end
+
+    always @ (posedge clk) begin // declare opetation + - * /
       if(reset) begin
         num1 <= 0;
         num2 <= 0;
@@ -74,17 +74,12 @@ module project(motor1, motor2,
 
       if(!reset || newNum) begin
         newNum <= 0;
-
-        if(num1 <= 3) begin 
+        if(num1 <= 3)
           operator <= 0;
-        end
-        else if(num1 <= 7) begin
+        else if(num1 <= 7)
           operator <= 1;
-        end
-          
-        else begin 
+        else
           operator <= 2;
-        end
 
         if(rand1 >= rand2) begin
             num1 <= rand1;
@@ -100,7 +95,6 @@ module project(motor1, motor2,
             1 : num3 <= num1 - num2;
             2 : num3 <= num1 * num2;
           endcase
-
       end
 
       if(!reset && !newNum) begin
@@ -187,7 +181,7 @@ module project(motor1, motor2,
         #5 show <= 1;
 
         if(show) begin
-           #5 num_led <= led1;
+          #5 num_led <= led1;
           #5 num_led <= led2;
           #5 num_led <= led3;
         end
@@ -198,7 +192,7 @@ endmodule
 module freq_div(clk_out, clk);
     output clk_out;
     input clk;
-    wire [32:0] c;
+    wire [20:0] c;
     T_FF tff01(c[0], 1'b1, clk, 1'b0);
     T_FF tff02(c[1], 1'b1, c[0], 1'b0);
     T_FF tff03(c[2], 1'b1, c[1], 1'b0);
@@ -215,9 +209,7 @@ module freq_div(clk_out, clk);
     T_FF tff14(c[13], 1'b1, c[12], 1'b0);
     T_FF tff15(c[14], 1'b1, c[13], 1'b0);
     T_FF tff16(c[15], 1'b1, c[14], 1'b0);
-    T_FF tff17(c[16], 1'b1, c[15], 1'b0);
-    T_FF tff18(c[17], 1'b1, c[16], 1'b0);
-    T_FF tff19(clk_out, 1'b1, c[17], 1'b0);
+    T_FF tff17(clk_out, 1'b1, c[15], 1'b0);
 endmodule
 
 module D_FF(q,d,clk,reset);
