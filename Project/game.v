@@ -1,35 +1,37 @@
-module project(motor1, motor2, motor3, 
-               led1, led2, led3, 
+module project(motor1, motor2, 
+               led1, led2, led3, point_led,
                switch, motor_dir, clk, reset, set);
 
     input [2:0] motor_dir;
-    input [4:0] switch;
+    input [3:0] switch;
     input reset, clk;
     input set;
 
     output [1:0] motor1;
     output [1:0] motor2;
-    output [1:0] motor3;
     output [6:0] led1;
     output [6:0] led2;
-    output [6 :0] led3;
+    output [6:0] led3;
+    output [6:0] point_led;
 
     reg [1:0] motor1;
     reg [1:0] motor2;
-    reg [1:0] motor3;
     reg [6:0] led1;
     reg [6:0] led2;
     reg [6:0] led3;
-    reg [2:0] num1;
-    reg [2:0] num2;
-    reg [2:0] num3;
-    reg rand,rand2,rand3;
+    reg [4:0] num1;
+    reg [4:0] num2;
+    reg [8:0] num3;
+    reg [2:0] point;
+
+    reg [3:0] rand,rand2;
+    reg [8:0] rand3;
     reg operator;
 
     always @(posedge clk) begin // random number
       rand <= rand + 1;
       rand2 <= rand2 + 3;
-      rand3 <= rand3++;
+      rand3 <= rand3 + rand + rand2;
       if(rand > 9) rand <= 0;
       if(rand2 > 9) rand2 <= rand2 - 9;
       if(rand3 > 100) rand3 <= 0; 
@@ -54,6 +56,12 @@ module project(motor1, motor2, motor3,
     end
 
     always @ (1) begin // declare opetation + - * /
+      if(reset) begin
+        num1 <= 0;
+        num2 <= 0;
+        num3 <= 0;
+      end
+
       if(set) begin
          alreadySet = 1;
          operator <= rand3 % 4;
@@ -116,45 +124,49 @@ module project(motor1, motor2, motor3,
             9 : led3 <= 7'b1111011;
         endcase
 
-      if(alreadySet) begin
+      if(alreadySet == 1) begin
         if(operator == 0) begin
           if(switch[0]) begin
             point <= point+1;
             reset = true;
+            alreadySet = 0;
           end
         end
         else if(operator == 1) begin
           if(switch[1]) begin
             point <= point+1;
             reset = true;
+            alreadySet = 0;
           end
         end
         else if(operator == 2) begin
           if(switch[2]) begin
             point <= point+1;
             reset = true;
+            alreadySet = 0;
           end
         end
         else if(operator == 3) begin
           if(switch[3]) begin
             point <= point+1;
             reset = true;
+            alreadySet = 0;
           end
         end
       end
 
       case (point)
             //            abcdefg
-            0 : led1 <= 7'b1111110;
-            1 : led1 <= 7'b0110000;
-            2 : led1 <= 7'b1101101;
-            3 : led1 <= 7'b1111001;
-            4 : led1 <= 7'b1110011;
-            5 : led1 <= 7'b1011011;
-            6 : led1 <= 7'b1011111;
-            7 : led1 <= 7'b1110000;
-            8 : led1 <= 7'b1111111;
-            9 : led1 <= 7'b1111011;
+            0 : point_led <= 7'b1111110;
+            1 : point_led <= 7'b0110000;
+            2 : point_led <= 7'b1101101;
+            3 : point_led <= 7'b1111001;
+            4 : point_led <= 7'b1110011;
+            5 : point_led <= 7'b1011011;
+            6 : point_led <= 7'b1011111;
+            7 : point_led <= 7'b1110000;
+            8 : point_led <= 7'b1111111;
+            9 : point_led <= 7'b1111011;
         endcase
 
     end
