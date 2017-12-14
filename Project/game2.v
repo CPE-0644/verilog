@@ -91,6 +91,160 @@ module game2(led1, led2, led3, point_led,
           num2 <= 3;
           num3 <= 6;
           operator <= 3;
+          pattern <= 9;
+        end
+        else if(pattern == 9) begin
+          num1 <= 3;
+          num2 <= 2;
+          num3 <= 6;
+          operator <= 3;
+          pattern <= 10;
+        end
+        else if(pattern == 10) begin
+          num1 <= 3;
+          num2 <= 1;
+          num3 <= 3;
+          operator <= 3;
+          pattern <= 11;
+        end
+        else if(pattern == 11) begin
+          num1 <= 1;
+          num2 <= 3;
+          num3 <= 4;
+          operator <= 1;
+          pattern <= 12;
+        end
+        else if(pattern == 12) begin
+          num1 <= 9;
+          num2 <= 8;
+          num3 <= 7;
+          operator <= 1;
+          pattern <= 13;
+        end
+        else if(pattern == 13) begin
+          num1 <= 7;
+          num2 <= 6;
+          num3 <= 3;
+          operator <= 1;
+          pattern <= 14;
+        end
+        else if(pattern == 14) begin
+          num1 <= 7;
+          num2 <= 7;
+          num3 <= 9;
+          operator <= 3;
+          pattern <= 15;
+        end
+        else if(pattern == 15) begin
+          num1 <= 5;
+          num2 <= 5;
+          num3 <= 5;
+          operator <= 3;
+          pattern <= 16;
+        end
+        else if(pattern == 16) begin
+          num1 <= 1;
+          num2 <= 3;
+          num3 <= 4;
+          operator <= 1;
+          pattern <= 17;
+        end
+        else if(pattern == 17) begin
+          num1 <= 7;
+          num2 <= 5;
+          num3 <= 2;
+          operator <= 2;
+          pattern <= 18;
+        end
+        else if(pattern == 18) begin
+          num1 <= 3;
+          num2 <= 8;
+          num3 <= 6;
+          operator <= 4;
+          pattern <= 19;
+        end
+        else if(pattern == 19) begin
+          num1 <= 1;
+          num2 <= 4;
+          num3 <= 2;
+          operator <= 4;
+          pattern <= 20;
+        end
+        else if(pattern == 20) begin
+          num1 <= 6;
+          num2 <= 7;
+          num3 <= 8;
+          operator <= 4;
+          pattern <= 21;
+        end
+        else if(pattern == 21) begin
+          num1 <= 9;
+          num2 <= 2;
+          num3 <= 8;
+          operator <= 3;
+          pattern <= 22;
+        end
+        else if(pattern == 22) begin
+          num1 <= 7;
+          num2 <= 4;
+          num3 <= 1;
+          operator <= 1;
+          pattern <= 23;
+        end
+        else if(pattern == 23) begin
+          num1 <= 8;
+          num2 <= 2;
+          num3 <= 0;
+          operator <= 1;
+          pattern <= 24;
+        end
+        else if(pattern == 24) begin
+          num1 <= 4;
+          num2 <= 6;
+          num3 <= 4;
+          operator <= 3;
+          pattern <= 25;
+        end
+        else if(pattern == 25) begin
+          num1 <= 7;
+          num2 <= 3;
+          num3 <= 1;
+          operator <= 3;
+          pattern <= 26;
+        end
+        else if(pattern == 26) begin
+          num1 <= 3;
+          num2 <= 5;
+          num3 <= 5;
+          operator <= 3;
+          pattern <= 27
+        end
+        else if(pattern == 27) begin
+          num1 <= 8;
+          num2 <= 9;
+          num3 <= 2;
+          operator <= 3;
+          pattern <= 28;
+        end
+        else if(pattern == 28) begin
+          num1 <= 7;
+          num2 <= 4;
+          num3 <= 3;
+          operator <= 2;
+          pattern <= 29;
+        end
+        else if(pattern == 29) begin
+          num1 <= 8;
+          num2 <= 5;
+          num3 <= 5;
+          operator <= 4;
+          pattern <= 30;
+        end
+        else if(pattern == 30) begin
+          num1 <= 3;
+          num2 <= 2;
+          num3 <= 8;
+          operator <= 4;
           pattern <= 1;
         end
         newGame <= 0;
