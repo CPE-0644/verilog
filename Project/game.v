@@ -1,19 +1,19 @@
 module project(motor1, motor2,
-               num_led, point_led,
-               switch, motor_dir, clk, reset);
+               led1, led2, led3, point_led,
+               switch, motor_dir, clk, reset, show);
 
     input [3:0] motor_dir;
     input [3:0] switch;
-    input reset, clk;
+    input reset, clk, show;
 
     output [1:0] motor1;
     output [1:0] motor2;
-    output [6:0] num_led;
+    output [6:0] led1, led2, led3;
     output [6:0] point_led;
+    
 
     reg [1:0] motor1;
     reg [1:0] motor2;
-    reg [6:0] num_led;
     reg [6:0] led1;
     reg [6:0] led2;
     reg [6:0] led3;
@@ -27,11 +27,24 @@ module project(motor1, motor2,
     reg [8:0] rand3;
     reg [2:0] operator;
     reg newNum;
-    reg show;
-
+    reg [6:0] count_time;
     wire q0;
 
    freq_div fd(q0 , clk);
+
+  // always @ (posedge q0 or posedge show) begin
+  //   if(q0) begin
+  //     count_time <= count_time + 1;
+  //   end
+  //   if(count_time >= 30) begin
+  //     count_time <= 0;
+  //   end
+  //   if(count_time <= 10)
+  //     num_led <= led1;
+  //   else if(count_time <= 20)
+  //     num_led <= led2;
+  //   else num_led <= led3;
+  // end
 
    always @ (posedge clk) begin // random number
       rand1 <= rand1 + 1;
@@ -67,9 +80,7 @@ module project(motor1, motor2,
         num3 <= 0;
         point <= 0;
         operator <= 0;
-        show <= 0;
         newNum <= 0;
-        point_led <= 0;
       end
 
       if(!reset || newNum) begin
@@ -100,24 +111,24 @@ module project(motor1, motor2,
       if(!reset && !newNum) begin
         if(operator == 0) begin
           if(switch[0]) begin
-            point <= point+1;
+            point <= point + 1;
             newNum <= 1;
           end
         end
         else if(operator == 1) begin
           if(switch[1]) begin
-            point <= point+1;
+            point <= point + 1;
             newNum <= 1;
           end
         end
         else if(operator == 2) begin
           if(switch[2]) begin
-            point <= point+1;
+            point <= point + 1;
             newNum <= 1;
           end
         end
         else if(switch[3]) begin
-          // show LED
+          // pass this 
           newNum <= 1;
         end
       end
@@ -178,14 +189,13 @@ module project(motor1, motor2,
             9 : led3 <= 7'b1111011;
         endcase
 
-        #5 show <= 1;
-
-        if(show) begin
-          #5 num_led <= led1;
-          #5 num_led <= led2;
-          #5 num_led <= led3;
-        end
+        // if(show) begin
+        //   #5 num_led <= led1;
+        //   #5 num_led <= led2;
+        //   #5 num_led <= led3;
+        // end
     end
+    
     
 endmodule
 
