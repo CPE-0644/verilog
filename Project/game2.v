@@ -1,37 +1,29 @@
-module project( led1, led2, led3 point_led,
-               switch, clk, reset, show );
+module game2(led1, led2, led3, point_led,
+               switch, clk, reset, start);
 
     input [3:0] switch;
-    input reset, clk, show;
+    input reset, clk, start;
 
-    output [6:0] led1, led2, led3_1, led3_2;
+    output [6:0] led1, led2, led3;
     output [6:0] point_led;
     
-    reg [7:0] led1;
-    reg [7:0] led2;
-    reg [7:0] led3;
+    reg [6:0] led1;
+    reg [6:0] led2;
+    reg [6:0] led3;
+    
     integer num1;
     integer num2;
     integer num3;
+    integer operator;
     integer point;
+    integer pattern;
+
     reg [6:0] point_led;
 
-    reg [3:0] rand1,rand2;
-    reg [8:0] rand3;
-    reg [2:0] operator;
-    reg newNum;
+    reg newGame;
     wire q0;
 
     freq_div fd(q0, clk);
-
-   always @ (posedge clk) begin // random number
-      rand1 <= rand1 + 1;
-      rand2 <= rand2 + 3;
-      rand3 <= rand3 + 3;
-      if(rand1 >= 9) rand1 <= 0;
-      if(rand2 >= 9) rand2 <= rand2 - rand2 + 1;
-      if(rand3 >= 100) rand3 <= 0; 
-    end
 
     always @ (posedge clk) begin // declare opetation + - * /
       if(reset) begin
@@ -40,56 +32,96 @@ module project( led1, led2, led3 point_led,
         num3 <= 0;
         point <= 0;
         operator <= 0;
-        newNum <= 0;
+        newGame <= 0;
+        pattern <= 1;
       end
 
-      if(!reset || newNum) begin
-        newNum <= 0;
-        if(num1 <= 3)
-          operator <= 0;
-        else if(num1 <= 7)
+      if(start || newGame) begin
+        if(pattern == 1) begin
+          num1 <= 4;
+          num2 <= 6;
+          num3 <= 0;
           operator <= 1;
-        else
-          operator <= 2;
-
-        if(rand1 >= rand2) begin
-            num1 <= rand1;
-            num2 <= rand2;
-         end 
-         else begin
-            num1 <= rand2;
-            num2 <= rand1;
-         end
-         
-          case (operator)
-            0 : num3 <= num1 + num2;
-            1 : num3 <= num1 - num2;
-            2 : num3 <= num1 * num2;
-          endcase
+          pattern <= 2;
+        end
+        else if(pattern == 2) begin
+          num1 <= 7;
+          num2 <= 3;
+          num3 <= 1;
+          operator <= 3;
+            pattern <= 3;
+        end
+        else if(pattern == 3) begin
+          num1 <= 3;
+          num2 <= 3;
+          num3 <= 9;
+          operator <= 3;
+          pattern <= 4;
+        end
+        else if(pattern == 4) begin
+          num1 <= 6;
+          num2 <= 3;
+          num3 <= 4;
+          operator <= 4;
+          pattern <= 5;
+        end
+        else if(pattern == 5) begin
+          num1 <= 8;
+          num2 <= 7;
+          num3 <= 5;
+          operator <= 1;
+          pattern <= 6;
+        end
+        else if(pattern == 6) begin
+          num1 <= 4;
+          num2 <= 3;
+          num3 <= 2;
+          operator <= 3;
+          pattern <= 7;
+        end
+        else if(pattern == 7) begin
+          num1 <= 2;
+          num2 <= 2;
+          num3 <= 5;
+          operator <= 4;
+          pattern <= 8;
+        end
+        else if(pattern == 8) begin
+          num1 <= 2;
+          num2 <= 3;
+          num3 <= 6;
+          operator <= 3;
+          pattern <= 1;
+        end
+        newGame <= 0;
       end
 
-      if(!reset && !newNum) begin
-        if(operator == 0) begin
+      // operator 1 + 2 - 3 x
+
+      if(operator != 0 && !newGame) begin
+        if(operator == 1) begin
           if(switch[0]) begin
             point <= point + 1;
-            newNum <= 1;
-          end
-        end
-        else if(operator == 1) begin
-          if(switch[1]) begin
-            point <= point + 1;
-            newNum <= 1;
+            newGame <= 1;
           end
         end
         else if(operator == 2) begin
-          if(switch[2]) begin
+          if(switch[1]) begin
             point <= point + 1;
-            newNum <= 1;
+            newGame <= 1;
           end
         end
-        else if(switch[3]) begin
-          // pass this 
-          newNum <= 1;
+        else if(operator == 3) begin
+          if(switch[2]) begin
+            point <= point + 1;
+            newGame <= 1;
+          end
+        end
+        else if(operator == 4) begin
+          if(switch[3]) begin
+            point <= point + 1;
+            newGame <= 1;
+          end
         end
       end
 
