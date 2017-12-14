@@ -12,11 +12,11 @@ module project(motor1, motor2,
     output [6:0] point_led;
     
 
-    reg [1:0] motor1;
+    reg [1:0] motor1;
     reg [1:0] motor2;
-    reg [6:0] led1;
-    reg [6:0] led2;
-    reg [6:0] led3;
+    reg [7:0] led1;
+    reg [7:0] led2;
+    reg [7:0] led3;
     reg [4:0] num1;
     reg [4:0] num2;
     reg [8:0] num3;
@@ -30,7 +30,7 @@ module project(motor1, motor2,
     reg [6:0] count_time;
     wire q0;
 
-   freq_div fd(q0 , clk);
+   // freq_div fd(q0 , clk);
 
   // always @ (posedge q0 or posedge show) begin
   //   if(q0) begin
